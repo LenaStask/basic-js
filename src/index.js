@@ -1,26 +1,35 @@
-const MODERN_ACTIVITY = 15;
-const HALF_LIFE_PERIOD = 5730;
-
-function dateSample(sampleActivity) {
-    if (isNaN(parseFloat(sampleActivity))) {
-        return false;
+function createDreamTeam( members ) {
+    if (members==[]) {
+      return '';
     }
-    if ((typeof parseInt(sampleActivity)) != "number"){
-        return false;
-    }
-    if (typeof sampleActivity != 'string' ||
-     sampleActivity === NaN || 
-     parseFloat(sampleActivity)<0 || 
-     parseFloat(sampleActivity)==0 ||
-     parseFloat(sampleActivity)>15) {
-        return false;
-    } else {
-        let age;
-        age = Math.log(MODERN_ACTIVITY/parseFloat(sampleActivity))/(0.693/HALF_LIFE_PERIOD);
-        return Math.ceil(age);
-    }
-   
+    if (Array.isArray(members)) {
+      let arrayOfLetters = []
+      for (let i=0; i<members.length; i++) {
+        console.log(members[i][0]);
+        if (typeof members[i] === 'string') {
+            members[i]=members[i].replace(/\s/g, '');
+            
+          arrayOfLetters.push(members[i][0].toLowerCase());
+        }  
+      }
+      
+      return arrayOfLetters.sort().join('').toUpperCase();
+    } else {return false;}  
+    
   }
 
-  console.log(dateSample(' '));
+  let members = [
+    ['David Abram'],
+    ['Robin Attfield'],
+    'Thomas Berry',
+    ['Paul R.Ehrlich'],
+    'donna Haraway',
+    ' BrIaN_gOodWiN  ',
+    {
+      0: 'Serenella Iovino'
+    },
+    'Erazim Kohak',
+    '  val_plumwood',
+  ];
+  console.log(createDreamTeam(members));
   
