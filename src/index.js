@@ -1,13 +1,23 @@
-function getEmailDomain(email) {
-  let domain = '';
- for(let i=0; i<email.length; i++) {
-   if(email[i]==='@') {
-     domain = email.substring(i+1);
-   }
- }
- return domain;
+function getMatrixElementsSum(matrix) {
+  let sum=0;
+  for (let i=0; i<matrix.length; i++){
+    for (let j=0; j<matrix[i].length; j++) {
+        if (i===0) {
+          sum+=matrix[i][j];
+        } else{
+          if ( matrix[i-1][j] != 0) {
+            sum+=matrix[i][j];
+          }
+          
+        }
+    }
+  }
+  return sum;
 }
 
-
-console.log(getEmailDomain('prettyandsimple@example.com'));
+console.log(getMatrixElementsSum([
+  [0, 1, 1, 2],
+  [0, 5, 0, 0],
+  [2, 0, 3, 3],
+]));
   
