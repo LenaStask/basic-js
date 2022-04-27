@@ -1,16 +1,13 @@
-function deleteDigit(n) {
-    let str = n.toString();
-    for (let i=0; i<str.length; i++) {
-      if (str[i]<str[i+1]) {
-        return str.replace(str[i],'');
-      } else if (str[i]>str[i+1]){
-        return str.replace(str[i+1],'');
-      } else {
-          i++;
-      }
-    }
-  }
+function getEmailDomain(email) {
+  let domain = '';
+ for(let i=0; i<email.length; i++) {
+   if(email[i]==='@') {
+     domain = email.substring(i+1);
+   }
+ }
+ return domain;
+}
 
 
-console.log(deleteDigit(342));
+console.log(getEmailDomain('prettyandsimple@example.com'));
   
