@@ -1,18 +1,16 @@
-function getCommonCharacterCount(s1, s2) {
-    let count=0;
-    for(let i=0; i <s1.length; i++) {
-      for(let j=0; j<s2.length; j++) {
-        if(s1[i] === s2[j]){
-          count++;
-          s1=s1.replace(s1[i],'');
-          s2=s2.replace(s2[j],'');
-          i--;
-        }
+function deleteDigit(n) {
+    let str = n.toString();
+    for (let i=0; i<str.length; i++) {
+      if (str[i]<str[i+1]) {
+        return str.replace(str[i],'');
+      } else if (str[i]>str[i+1]){
+        return str.replace(str[i+1],'');
+      } else {
+          i++;
       }
     }
-    return count;
   }
 
 
-console.log(getCommonCharacterCount('abca', 'xyzbac'));
+console.log(deleteDigit(342));
   
