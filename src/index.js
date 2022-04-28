@@ -1,25 +1,55 @@
-function encodeLine(str) {
-  let arr=[];
-  for (let i=0; i<str.length; i++) {
-    let count = 1;
-    let temp = str[i];
-    for (let j=i+1; j<str.length; j++) {
-      if (str[i]==str[j]) {
-        count++;
-        i=j;
+const chainMaker = {
+  str : '',
+  getLength() {
+    let arr = this.str.split('~~');
+    return arr.length;
+  },
+  addLink(value) {
+    if (value === undefined) {
+      if (this.str === ''){
+        this.str +=`( )`;
       } else {
-        i = j-1;
-        j = str.length-1;
+        this.str +=`~~( )`;
+      }
+    } else {
+      if (this.str === ''){
+        this.str +=`( ${value} )`;
+      } else {
+        this.str +=`~~( ${value} )`;
       }
     }
-    if (count>1){
-      arr.push(count);
-      arr.push(temp);
+    return this;
+  },
+  removeLink(position) {
+    if (typeof position !== 'number'){
+      throw new Error ("You can't remove incorrect link!");
     } else {
-      arr.push(temp);
-    } 
+      let arr=[];
+      if (this.str != ''){
+        arr = this.str.split('~~');
+        if (position<1 || position>arr.length) {
+          throw new Error ("You can't remove incorrect link!");
+        } else {
+          for (let i=position-1; i<arr.length-1; i++) {
+            arr[i]=arr[i+1];
+          }
+          arr.length = arr.length-1;
+          this.str = arr.join('~~');
+        } 
+      }
+      return this;
+    }
+    
+  },
+  reverseChain() {
+    this.str = this.str.split('~~').reverse().join('~~');
+    return this;
+  },
+  finishChain() {
+      let newStr = this.str;
+      this.str = '';
+      return newStr;
   }
-  return arr.join('');
-}
-console.log(encodeLine('aaaatttt'));
+};
+console.log(chainMaker.reverseChain().reverseChain().reverseChain().addLink(NaN).reverseChain().addLink(null).addLink(1.233).addLink(true).addLink(false).removeLink(3).addLink(1.233).finishChain());
   

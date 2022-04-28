@@ -4,26 +4,59 @@ const { NotImplementedError } = require('../extensions/index.js');
  * Implement chainMaker object according to task description
  * 
  */
-const chainMaker = {
+ const chainMaker = {
+  str : '',
   getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let arr = this.str.split('~~');
+    return arr.length;
   },
   addLink(value) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (value === undefined) {
+      if (this.str === ''){
+        this.str +=`( )`;
+      } else {
+        this.str +=`~~( )`;
+      }
+    } else {
+      if (this.str === ''){
+        this.str +=`( ${value} )`;
+      } else {
+        this.str +=`~~( ${value} )`;
+      }
+    }
+    return this;
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  removeLink(position) {
+    if (typeof position !== 'number'){
+      this.str = '';
+      throw new Error ("You can't remove incorrect link!");
+    } else {
+      let arr=[];
+      if (this.str != ''){
+        arr = this.str.split('~~');
+        if (position<1 || position>arr.length) {
+          this.str = '';
+          throw new Error ("You can't remove incorrect link!");
+        } else {
+          for (let i=position-1; i<arr.length-1; i++) {
+            arr[i]=arr[i+1];
+          }
+          arr.length = arr.length-1;
+          this.str = arr.join('~~');
+        } 
+      }
+      return this;
+    }
+    
   },
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    this.str = this.str.split('~~').reverse().join('~~');
+    return this;
   },
   finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let newStr = this.str;
+    this.str = '';
+    return newStr;
   }
 };
 
