@@ -1,29 +1,25 @@
-function getDNSStats(domains) {
-  let obj = new Object();
-  let arr = [];
-  for (let i=0; i<domains.length; i++) {
-    arr = domains[i].split('.').reverse();
-    if(obj[arr[0]]) {
-      obj[arr[0]]  += 1;
-    } else{
-      obj[arr[0]]  = 1;
-    }
-    if(obj[arr[0]+'.'+arr[1]]){
-      obj[arr[0]+'.'+arr[1]] +=1;
-    } else{
-      obj[arr[0]+'.'+arr[1]] =1;
-    } if(arr.length === 3){
-      if(obj[arr[0]+'.'+arr[1]+'.'+arr[2]]){
-      
-        obj[arr[0]+'.'+arr[1]+'.'+arr[2]] +=1;
+function encodeLine(str) {
+  let arr=[];
+  for (let i=0; i<str.length; i++) {
+    let count = 1;
+    let temp = str[i];
+    for (let j=i+1; j<str.length; j++) {
+      if (str[i]==str[j]) {
+        count++;
+        i=j;
       } else {
-        obj[arr[0]+'.'+arr[1]+'.'+arr[2]] =1;
+        i = j-1;
+        j = str.length-1;
       }
     }
-    
+    if (count>1){
+      arr.push(count);
+      arr.push(temp);
+    } else {
+      arr.push(temp);
+    } 
   }
-  
-  return obj;
+  return arr.join('');
 }
-console.log(getDNSStats(['epam.com', 'info.epam.com']));
+console.log(encodeLine('aaaatttt'));
   
