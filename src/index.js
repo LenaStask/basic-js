@@ -1,20 +1,29 @@
-function renameFiles(names) {
-  let k=1;
-  for (let i=0; i<names.length; i++) {
-    for (let j=i+1; j<names.length; j++) {
-      if (names[i]===names[j]) {
-        if (names[j].includes('(') && names[j].includes(')')) {
-          k = names[j].substring(names[j].length-2,names[j].length-1);
-          k = Number.parseInt(k);
-          names[j]=names[j]+`(${k})`;
-        } else {
-          names[j]=names[j]+`(${k})`;
-          k++;
-        }
+function getDNSStats(domains) {
+  let obj = new Object();
+  let arr = [];
+  for (let i=0; i<domains.length; i++) {
+    arr = domains[i].split('.').reverse();
+    if(obj[arr[0]]) {
+      obj[arr[0]]  += 1;
+    } else{
+      obj[arr[0]]  = 1;
+    }
+    if(obj[arr[0]+'.'+arr[1]]){
+      obj[arr[0]+'.'+arr[1]] +=1;
+    } else{
+      obj[arr[0]+'.'+arr[1]] =1;
+    } if(arr.length === 3){
+      if(obj[arr[0]+'.'+arr[1]+'.'+arr[2]]){
+      
+        obj[arr[0]+'.'+arr[1]+'.'+arr[2]] +=1;
+      } else {
+        obj[arr[0]+'.'+arr[1]+'.'+arr[2]] =1;
       }
     }
+    
   }
-  return names;
+  
+  return obj;
 }
-console.log(renameFiles([]));
+console.log(getDNSStats(['epam.com', 'info.epam.com']));
   
