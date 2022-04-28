@@ -15,17 +15,27 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(str, options) {
-  
- if (options.separator === undefined) {
-    options.separator = '+';
+ function repeater(str, options) {
+  let separator = options.separator || '+';
+  let additionSeparator = options.additionSeparator || '|';
+  let addStr = '';
+  let newStr = '';
+  if (options.addition !== undefined) {
+    if (options.additionRepeatTimes === undefined) {
+      addStr = options.addition;
+    } else {
+        for (let j=0; j<options.additionRepeatTimes; j++) {
+            addStr += options.addition;
+            if (j != options.additionRepeatTimes - 1) {
+              addStr += additionSeparator;
+            }
+        }
+    }
   }
-  if (options.additionSeparator === undefined) {
-    options.additionSeparator = '|';
-  }
- 
+  let repeatTimes = options.repeatTimes || 1;
+  newStr = (str + addStr + separator).repeat(repeatTimes);
+  return newStr.substring(0, newStr.length - separator.length);
 }
-
 module.exports = {
   repeater
 };
